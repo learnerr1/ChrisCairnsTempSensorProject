@@ -1,5 +1,5 @@
 {
-    "Name": "DC-Room-Sensor-01",
+    "Name": "Sensor-01",
     "Location": "Data Center Room 1",
     "MinValue": 22.0,
     "MaxValue": 24.0,
