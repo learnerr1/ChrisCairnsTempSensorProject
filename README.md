@@ -2,7 +2,7 @@
 # Temperature Sensor Simulation Project
 
 ## Project Description
-This project simulates a temperature sensor for a data center environment, providing real-time temperature monitoring, data validation, and anomaly detection.
+This project simulates temperature sensors
 
 ## Features
 [TODO]
