@@ -6,13 +6,13 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "TemperatureSensor.App/1.0.0": {
+      "TemperatureSensor.app/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Logging": "7.0.0",
           "Microsoft.Extensions.Logging.Console": "7.0.0"
         },
         "runtime": {
-          "TemperatureSensor.App.dll": {}
+          "TemperatureSensor.app.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration/7.0.0": {
@@ -168,7 +168,7 @@
     }
   },
   "libraries": {
-    "TemperatureSensor.App/1.0.0": {
+    "TemperatureSensor.app/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

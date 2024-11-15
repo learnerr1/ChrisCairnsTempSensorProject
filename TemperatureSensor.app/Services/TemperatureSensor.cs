@@ -1,4 +1,3 @@
-// TemperatureSensor.App/Services/TemperatureSensor.cs
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using TemperatureSensor.App.Models;
