@@ -1,0 +1,14 @@
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\bin\Debug\net7.0\TemperatureSensor.App.exe
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\bin\Debug\net7.0\TemperatureSensor.App.deps.json
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\bin\Debug\net7.0\TemperatureSensor.App.runtimeconfig.json
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\bin\Debug\net7.0\TemperatureSensor.App.dll
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\bin\Debug\net7.0\TemperatureSensor.App.pdb
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.AssemblyInfoInputs.cache
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.AssemblyInfo.cs
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.csproj.CoreCompileInputs.cache
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.dll
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\refint\TemperatureSensor.App.dll
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.pdb
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\TemperatureSensor.App.genruntimeconfig.cache
+c:\Users\Chris\TemperatureSensorProject\TemperatureSensor.App\obj\Debug\net7.0\ref\TemperatureSensor.App.dll
