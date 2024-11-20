@@ -1,15 +1,21 @@
-﻿// TemperatureSensor.App/Program.cs
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using TemperatureSensor.App.Services;
+using TemperatureSensor.App.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-var loggerFactory = LoggerFactory.Create(builder => 
-{
-    builder.AddConsole();
-    builder.SetMinimumLevel(LogLevel.Debug);
-});
+// Set up dependency injection
+var services = new ServiceCollection()
+    .AddLogging(builder =>
+    {
+        builder.AddConsole();
+        builder.SetMinimumLevel(LogLevel.Debug);
+    })
+    .AddSingleton<IDataHistory, DataHistory>()
+    .AddSingleton<ITemperatureSensor, TempSensor>()
+    .BuildServiceProvider();
 
-var logger = loggerFactory.CreateLogger<TempSensor>();
-var sensor = new TempSensor(logger);
+// Get services from the container
+var sensor = services.GetRequiredService<ITemperatureSensor>();
 
 try
 {

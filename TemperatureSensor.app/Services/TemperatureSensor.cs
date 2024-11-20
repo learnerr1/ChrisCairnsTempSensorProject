@@ -1,4 +1,4 @@
-// TemperatureSensor.App/Services/TemperatureSensor.cs
+
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using TemperatureSensor.App.Models;
@@ -8,6 +8,7 @@ namespace TemperatureSensor.App.Services;
 
 public class TempSensor : ITemperatureSensor
 {
+    private readonly IDataHistory _dataHistory;
     private SensorConfig? _config;
     private bool _isRunning;
     private readonly ILogger<TempSensor> _logger;
@@ -19,9 +20,10 @@ public class TempSensor : ITemperatureSensor
     public string Location => _config?.Location ?? string.Empty;
     public bool IsRunning => _isRunning;
 
-    public TempSensor(ILogger<TempSensor> logger)
+    public TempSensor(ILogger<TempSensor> logger, IDataHistory dataHistory)
     {
         _logger = logger;
+        _dataHistory = dataHistory;
         _isRunning = false;
         _random = new Random();
         _currentReading = 0;
@@ -134,7 +136,7 @@ public class TempSensor : ITemperatureSensor
         return _currentReading;
     }
 
-    private void SimulateReading(object? state)
+    private async void SimulateReading(object? state)
     {
         if (!_isRunning || _config == null) return;
 
@@ -144,6 +146,15 @@ public class TempSensor : ITemperatureSensor
 
         // Ensure reading stays within bounds
         _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
+
+        var sensorData = new SensorData
+        {
+            Temperature = _currentReading,
+            Timestamp = DateTime.UtcNow,
+            IsValid = true // You can implement validation logic here
+        };
+
+        await _dataHistory.StoreData(sensorData);
 
         _logger.LogDebug("New reading for {SensorName}: {Reading}°C", Name, _currentReading.ToString("F2"));
     }
