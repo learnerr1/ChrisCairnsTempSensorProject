@@ -140,18 +140,18 @@ public class TempSensor : ITemperatureSensor
     {
         if (!_isRunning || _config == null) return;
 
-        // Add random noise to the current reading
+ 
         double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
         _currentReading += noise;
 
-        // Ensure reading stays within bounds
+
         _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
 
         var sensorData = new SensorData
         {
-            Temperature = _currentReading,
+             Temperature = Math.Round(_currentReading, 2),
             Timestamp = DateTime.UtcNow,
-            IsValid = true // You can implement validation logic here
+            IsValid = true 
         };
 
         await _dataHistory.StoreData(sensorData);
