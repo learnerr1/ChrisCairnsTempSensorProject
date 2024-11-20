@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v7.0": {
       "TemperatureSensor.App/1.0.0": {
         "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "7.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.Logging": "7.0.0",
           "Microsoft.Extensions.Logging.Console": "7.0.0"
         },
