@@ -137,25 +137,78 @@ public class TempSensor : ITemperatureSensor
     }
 
     private async void SimulateReading(object? state)
+{
+    if (!_isRunning || _config == null) return;
+
+    double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
+    _currentReading += noise;
+    _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
+
+    var validationResult = ValidateData(_currentReading);
+    
+    var sensorData = new SensorData
     {
-        if (!_isRunning || _config == null) return;
+        Temperature = Math.Round(_currentReading, 2),
+        Timestamp = DateTime.UtcNow,
+        IsValid = validationResult.IsValid
+    };
 
- 
-        double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
-        _currentReading += noise;
+    await _dataHistory.StoreData(sensorData);
 
-
-        _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
-
-        var sensorData = new SensorData
-        {
-             Temperature = Math.Round(_currentReading, 2),
-            Timestamp = DateTime.UtcNow,
-            IsValid = true 
-        };
-
-        await _dataHistory.StoreData(sensorData);
-
-        _logger.LogDebug("New reading for {SensorName}: {Reading}°C", Name, _currentReading.ToString("F2"));
+    if (!validationResult.IsValid)
+    {
+        _logger.LogWarning("Invalid reading detected: {Message}", validationResult.Message);
     }
+
+    _logger.LogDebug("New reading for {SensorName}: {Reading}°C (Valid: {IsValid})", 
+        Name, 
+        _currentReading.ToString("F2"),
+        validationResult.IsValid);
+}
+
+public ValidationResult ValidateData(double temperature)
+{
+    if (_config == null)
+    {
+        return new ValidationResult(false, "Sensor not initialized");
+    }
+
+  
+    if (temperature < _config.MinValue || temperature > _config.MaxValue)
+    {
+        return new ValidationResult(
+            false,
+            $"Temperature {temperature}°C is outside valid range ({_config.MinValue}°C to {_config.MaxValue}°C)"
+        );
+    }
+
+  
+    var recentReadings = _dataHistory.GetHistory()
+        .OrderByDescending(x => x.Timestamp)
+        .Take(5)
+        .ToList();
+
+    if (recentReadings.Any())
+    {
+        var avgRecentTemp = recentReadings.Average(x => x.Temperature);
+        var suddenChange = Math.Abs(temperature - avgRecentTemp);
+        
+
+        var validRange = _config.MaxValue - _config.MinValue;
+        var maxAllowedChange = validRange * 0.2;
+        
+        if (suddenChange > maxAllowedChange)
+        {
+            return new ValidationResult(
+                false,
+                $"Suspicious rapid temperature change detected: {suddenChange:F2}°C difference from recent average"
+            );
+        }
+    }
+
+    return new ValidationResult(true, "Temperature reading is valid");
+}
+
+
+
 }

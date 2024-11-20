@@ -1,5 +1,5 @@
 namespace TemperatureSensor.App.Interfaces;
-
+using TemperatureSensor.App.Models;
 public interface ITemperatureSensor
 {
     string Name { get; }
@@ -9,4 +9,5 @@ public interface ITemperatureSensor
     Task StartSensor();
     Task StopSensor();
     double GetCurrentReading();
+    ValidationResult ValidateData(double temperature);
 }
