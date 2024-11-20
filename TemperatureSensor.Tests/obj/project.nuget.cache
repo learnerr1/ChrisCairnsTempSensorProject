@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Zg9xyGmXw4X1m92hWYzz98MCEP/RbxpMkpvslmU3lrfVoDxDtsfG9PymYw8i1bCw0DXkU9O6pmheZam9kPlGig==",
+  "dgSpecHash": "u0zOswYUJLP78dmVJrcju8jsgAYP3co/A8uUHA/ZcGQWszlnkwNkCvAQGAh8TUHOSHWdptudl2K/UIfJtWURGA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
+  "projectFilePath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Chris\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Chris\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",

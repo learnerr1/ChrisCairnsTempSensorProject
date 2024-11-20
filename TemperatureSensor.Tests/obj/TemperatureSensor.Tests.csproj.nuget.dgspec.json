@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj": {}
+    "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj": {
+    "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj",
+        "projectUniqueName": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj",
         "projectName": "TemperatureSensor.App",
-        "projectPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj",
+        "projectPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj",
         "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\obj\\",
+        "outputPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -73,14 +73,14 @@
         }
       }
     },
-    "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj": {
+    "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
+        "projectUniqueName": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
         "projectName": "TemperatureSensor.Tests",
-        "projectPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
+        "projectPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
         "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\obj\\",
+        "outputPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -101,8 +101,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj": {
-                "projectPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj"
+              "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj": {
+                "projectPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj"
               }
             }
           }
