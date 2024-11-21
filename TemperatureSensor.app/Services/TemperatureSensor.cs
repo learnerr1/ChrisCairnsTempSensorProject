@@ -3,6 +3,9 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using TemperatureSensor.App.Models;
 using TemperatureSensor.App.Interfaces;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TemperatureSensor.App.Services;
 
@@ -55,7 +58,7 @@ public class TempSensor : ITemperatureSensor
             }
 
             _config = config;
-            // Initialize with base temperature
+        
             _currentReading = (_config.MaxValue + _config.MinValue) / 2;
             _logger.LogInformation("Sensor initialized successfully: {SensorName}", Name);
             return true;
@@ -173,7 +176,7 @@ public ValidationResult ValidateData(double temperature)
         return new ValidationResult(false, "Sensor not initialized");
     }
 
-  
+
     if (temperature < _config.MinValue || temperature > _config.MaxValue)
     {
         return new ValidationResult(
@@ -182,28 +185,32 @@ public ValidationResult ValidateData(double temperature)
         );
     }
 
-  
+   
     var recentReadings = _dataHistory.GetHistory()
         .OrderByDescending(x => x.Timestamp)
         .Take(5)
         .ToList();
 
-    if (recentReadings.Any())
-    {
-        var avgRecentTemp = recentReadings.Average(x => x.Temperature);
-        var suddenChange = Math.Abs(temperature - avgRecentTemp);
-        
 
-        var validRange = _config.MaxValue - _config.MinValue;
-        var maxAllowedChange = validRange * 0.2;
-        
-        if (suddenChange > maxAllowedChange)
-        {
-            return new ValidationResult(
-                false,
-                $"Suspicious rapid temperature change detected: {suddenChange:F2}°C difference from recent average"
-            );
-        }
+    if (!recentReadings.Any())
+    {
+        return new ValidationResult(true, "Temperature reading is valid");
+    }
+
+
+    var avgRecentTemp = recentReadings.Average(x => x.Temperature);
+    var suddenChange = Math.Abs(temperature - avgRecentTemp);
+    
+
+    var validRange = _config.MaxValue - _config.MinValue;
+    var maxAllowedChange = validRange * 0.2;
+    
+    if (suddenChange > maxAllowedChange)
+    {
+        return new ValidationResult(
+            false,
+            $"Suspicious rapid temperature change detected: {suddenChange:F2}°C difference from recent average"
+        );
     }
 
     return new ValidationResult(true, "Temperature reading is valid");
