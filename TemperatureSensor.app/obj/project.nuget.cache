@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W8r9yRjFRdOVd/R6sXGrDyRyNxcSxljQk7h5FSh1RvBp6cx7yecqKaSIpz0g6UZvjrp6pRf6hx0xEtLylUo3cw==",
+  "dgSpecHash": "DqYcAp6lqePGy6iRdY/PKV6zenRDFI53T48HxaEAUYfX5Z8vO0/k4H/p68PaeASLp23IFF9Ty5JLPS9SZ7h8QA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.app.csproj",
+  "projectFilePath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Chris\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\Chris\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

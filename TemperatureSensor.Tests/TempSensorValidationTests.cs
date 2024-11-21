@@ -34,18 +34,23 @@ public class TempSensorValidationTests : IDisposable
         Assert.Contains("not initialized", result.Message);
     }
 
-    [Theory]
-    [InlineData(21.9)] 
-    [InlineData(24.1)]
-    public async Task ValidateData_OutsideRange_ReturnsInvalid(double temperature)
-    {
-        await InitializeSensorWithConfig();
+[Theory]
+[InlineData(19.9)] 
+[InlineData(26.1)] 
+public async Task ValidateData_OutsideRange_ReturnsInvalid(double temperature)
+{
+    await InitializeSensorWithConfig();
 
-        var result = _sensor.ValidateData(temperature);
+    var result = _sensor.ValidateData(temperature);
 
-        Assert.False(result.IsValid);
-        Assert.Contains("outside valid range", result.Message);
-    }
+    Assert.False(result.IsValid);
+    Assert.Contains("outside valid range", result.Message);
+}
+
+
+
+
+
 
     [Theory]
     [InlineData(22.5)]
@@ -82,33 +87,36 @@ public class TempSensorValidationTests : IDisposable
         Assert.Contains("rapid temperature change", result.Message);
     }
 
-    [Fact]
-    public void ValidateData_NoHistoricalData_ValidatesCurrentReadingOnly()
-    {
-        var emptyHistory = new List<SensorData>();
-        _dataHistoryMock.Setup(x => x.GetHistory())
-            .Returns(emptyHistory);
+ [Fact]
+public async Task ValidateData_NoHistoricalData_ValidatesCurrentReadingOnly()
+{
 
-        var result = _sensor.ValidateData(23.0);
+    await InitializeSensorWithConfig();
+    var emptyHistory = new List<SensorData>();
+    _dataHistoryMock.Setup(x => x.GetHistory()).Returns(emptyHistory);
 
-        Assert.True(result.IsValid);
-    }
+
+    var result = _sensor.ValidateData(23.0); 
+
+  
+    Assert.True(result.IsValid);
+}
 
     private async Task InitializeSensorWithConfig()
-    {
-        var configJson = @"{
-            ""Name"": ""TestSensor"",
-            ""Location"": ""TestLocation"",
-            ""MinValue"": 22,
-            ""MaxValue"": 24,
-            ""ReadingIntervalMs"": 1000,
-            ""NoiseLevel"": 0.1
-        }";
-        
-        await File.WriteAllTextAsync(TEST_CONFIG_PATH, configJson);
-        await _sensor.InitializeSensor(TEST_CONFIG_PATH);
-        File.Delete(TEST_CONFIG_PATH);
-    }
+{
+    var configJson = @"{
+        ""Name"": ""TestSensor"",
+        ""Location"": ""TestLocation"",
+        ""MinValue"": 20,
+        ""MaxValue"": 26,
+        ""ReadingIntervalMs"": 1000,
+        ""NoiseLevel"": 0.1
+    }";
+    
+    await File.WriteAllTextAsync(TEST_CONFIG_PATH, configJson);
+    await _sensor.InitializeSensor(TEST_CONFIG_PATH);
+    File.Delete(TEST_CONFIG_PATH);
+}
 
     public void Dispose()
     {
