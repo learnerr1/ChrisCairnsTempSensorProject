@@ -1,10 +1,11 @@
+C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\.msCoverageSourceRootsMapping_TemperatureSensor.Tests
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\CoverletSourceRootsMapping_TemperatureSensor.Tests
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\testhost.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\TemperatureSensor.App.deps.json
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\TemperatureSensor.App.runtimeconfig.json
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\TemperatureSensor.App.exe
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\testhost.exe
-C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\xunit.runner.visualstudio.testadapter.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\xunit.runner.reporters.netcoreapp10.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\xunit.runner.utility.netcoreapp10.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\TemperatureSensor.Tests.deps.json
@@ -34,7 +35,6 @@ C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\Microsoft.VisualStudio.TestPlatform.Common.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\Moq.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\Newtonsoft.Json.dll
-C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\NuGet.Frameworks.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\System.Diagnostics.EventLog.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\xunit.abstractions.dll
 C:\Users\Chris\TemperatureSensorProject\TemperatureSensor.Tests\bin\Debug\net7.0\xunit.assert.dll
