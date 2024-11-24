@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "SAZz9M5arZntC0XFNTssKCooKXWFz8K3ojty/x7BMv4cdVXRpxGlKSOX33LjD87SLRknN25PjvoxW8UMyTQ6Lw==",
+  "dgSpecHash": "tcJzFJNT7UNxaRaL2i+bJDaXL6jaTmZU5gj2C9l/yY4A93UlcHC7WWxDKHEeAr8Z8IceDmdwQcsixti6lSz7NA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Chris\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
-    "C:\\Users\\Chris\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
+    "C:\\Users\\Chris\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Chris\\.nuget\\packages\\microsoft.codecoverage\\17.7.1\\microsoft.codecoverage.17.7.1.nupkg.sha512",
     "C:\\Users\\Chris\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\Chris\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
