@@ -9,4 +9,6 @@ public interface IDataHistory
     IEnumerable<SensorData> GetHistory();
     double GetAverageTemperature();
     void ClearHistory();
+    
+    double SmoothData(int windowSize = 5);
 }

@@ -10,4 +10,5 @@ public interface ITemperatureSensor
     Task StopSensor();
     double GetCurrentReading();
     ValidationResult ValidateData(double temperature);
+    double GetSmoothedReading(int windowSize = 5);
 }

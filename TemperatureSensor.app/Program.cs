@@ -11,7 +11,7 @@ var services = new ServiceCollection()
     .AddLogging(builder =>
     {
         builder.AddConsole();
-        builder.SetMinimumLevel(LogLevel.Debug);
+        builder.SetMinimumLevel(LogLevel.Information);
     })
     .AddSingleton<IDataHistory, DataHistory>()
     .AddSingleton<IDataLogger, FileLogger>()
@@ -43,7 +43,8 @@ try
     while (!Console.KeyAvailable)
     {
         var reading = sensor.GetCurrentReading();
-        Console.WriteLine($"{DateTime.Now:HH:mm:ss} - Temperature: {reading:F2}°C");
+        var smoothedReading = sensor.GetSmoothedReading();
+         Console.WriteLine($"{DateTime.Now:HH:mm:ss} - Temperature: {reading:F2}°C (Moving Smoothed Average: {smoothedReading:F2}°C)");
         await Task.Delay(1000);
     }
 

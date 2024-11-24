@@ -221,4 +221,15 @@ public class TempSensor : ITemperatureSensor
 
         return new ValidationResult(true, "Temperature reading is valid");
     }
+
+public double GetSmoothedReading(int windowSize = 5)
+{
+    if (!_isRunning || _config == null)
+    {
+        throw new InvalidOperationException("Sensor is not running or not initialized");
+    }
+    
+    return _dataHistory.SmoothData(windowSize);
+}
+
 }
