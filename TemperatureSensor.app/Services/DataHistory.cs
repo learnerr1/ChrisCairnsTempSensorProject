@@ -8,7 +8,7 @@ public class DataHistory : IDataHistory
 {
     private readonly List<SensorData> _history;
     private readonly ILogger<DataHistory> _logger;
-    private const int MAX_HISTORY_SIZE = 1000; // Maintain last 1000 readings
+    private const int MAX_HISTORY_SIZE = 1000; 
 
     public DataHistory(ILogger<DataHistory> logger)
     {
@@ -22,7 +22,7 @@ public class DataHistory : IDataHistory
         {
             _history.Add(data);
             
-            // Keep history size manageable by removing oldest entries
+            
             if (_history.Count > MAX_HISTORY_SIZE)
             {
                 _history.RemoveRange(0, _history.Count - MAX_HISTORY_SIZE);

@@ -1,4 +1,3 @@
-
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using TemperatureSensor.App.Models;
@@ -12,6 +11,7 @@ namespace TemperatureSensor.App.Services;
 public class TempSensor : ITemperatureSensor
 {
     private readonly IDataHistory _dataHistory;
+    private readonly IDataLogger _dataLogger;
     private SensorConfig? _config;
     private bool _isRunning;
     private readonly ILogger<TempSensor> _logger;
@@ -23,10 +23,11 @@ public class TempSensor : ITemperatureSensor
     public string Location => _config?.Location ?? string.Empty;
     public bool IsRunning => _isRunning;
 
-    public TempSensor(ILogger<TempSensor> logger, IDataHistory dataHistory)
+    public TempSensor(ILogger<TempSensor> logger, IDataHistory dataHistory, IDataLogger dataLogger)
     {
         _logger = logger;
         _dataHistory = dataHistory;
+        _dataLogger = dataLogger;
         _isRunning = false;
         _random = new Random();
         _currentReading = 0;
@@ -59,6 +60,15 @@ public class TempSensor : ITemperatureSensor
 
             _config = config;
         
+
+            var logPath = Path.Combine("logs", $"{_config.Name}_readings.log");
+            var loggerInitialized = await _dataLogger.Initialize(logPath);
+            if (!loggerInitialized)
+            {
+                _logger.LogError("Failed to initialize data logger");
+                return false;
+            }
+
             _currentReading = (_config.MaxValue + _config.MinValue) / 2;
             _logger.LogInformation("Sensor initialized successfully: {SensorName}", Name);
             return true;
@@ -140,82 +150,75 @@ public class TempSensor : ITemperatureSensor
     }
 
     private async void SimulateReading(object? state)
-{
-    if (!_isRunning || _config == null) return;
-
-    double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
-    _currentReading += noise;
-    _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
-
-    var validationResult = ValidateData(_currentReading);
-    
-    var sensorData = new SensorData
     {
-        Temperature = Math.Round(_currentReading, 2),
-        Timestamp = DateTime.UtcNow,
-        IsValid = validationResult.IsValid
-    };
+        if (!_isRunning || _config == null) return;
 
-    await _dataHistory.StoreData(sensorData);
+        double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
+        _currentReading += noise;
+        _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
 
-    if (!validationResult.IsValid)
-    {
-        _logger.LogWarning("Invalid reading detected: {Message}", validationResult.Message);
+        var validationResult = ValidateData(_currentReading);
+        
+        var sensorData = new SensorData
+        {
+            Temperature = Math.Round(_currentReading, 2),
+            Timestamp = DateTime.UtcNow,
+            IsValid = validationResult.IsValid
+        };
+
+        await _dataHistory.StoreData(sensorData);
+        await _dataLogger.LogData(sensorData);
+
+        if (!validationResult.IsValid)
+        {
+            _logger.LogWarning("Invalid reading detected: {Message}", validationResult.Message);
+        }
+
+        _logger.LogDebug("New reading for {SensorName}: {Reading}°C (Valid: {IsValid})", 
+            Name, 
+            _currentReading.ToString("F2"),
+            validationResult.IsValid);
     }
 
-    _logger.LogDebug("New reading for {SensorName}: {Reading}°C (Valid: {IsValid})", 
-        Name, 
-        _currentReading.ToString("F2"),
-        validationResult.IsValid);
-}
-
-public ValidationResult ValidateData(double temperature)
-{
-    if (_config == null)
+    public ValidationResult ValidateData(double temperature)
     {
-        return new ValidationResult(false, "Sensor not initialized");
-    }
+        if (_config == null)
+        {
+            return new ValidationResult(false, "Sensor not initialized");
+        }
 
-
-    if (temperature < _config.MinValue || temperature > _config.MaxValue)
-    {
-        return new ValidationResult(
-            false,
-            $"Temperature {temperature}°C is outside valid range ({_config.MinValue}°C to {_config.MaxValue}°C)"
-        );
-    }
-
+        if (temperature < _config.MinValue || temperature > _config.MaxValue)
+        {
+            return new ValidationResult(
+                false,
+                $"Temperature {temperature}°C is outside valid range ({_config.MinValue}°C to {_config.MaxValue}°C)"
+            );
+        }
    
-    var recentReadings = _dataHistory.GetHistory()
-        .OrderByDescending(x => x.Timestamp)
-        .Take(5)
-        .ToList();
+        var recentReadings = _dataHistory.GetHistory()
+            .OrderByDescending(x => x.Timestamp)
+            .Take(5)
+            .ToList();
 
+        if (!recentReadings.Any())
+        {
+            return new ValidationResult(true, "Temperature reading is valid");
+        }
 
-    if (!recentReadings.Any())
-    {
+        var avgRecentTemp = recentReadings.Average(x => x.Temperature);
+        var suddenChange = Math.Abs(temperature - avgRecentTemp);
+    
+        var validRange = _config.MaxValue - _config.MinValue;
+        var maxAllowedChange = validRange * 0.2;
+        
+        if (suddenChange > maxAllowedChange)
+        {
+            return new ValidationResult(
+                false,
+                $"Suspicious rapid temperature change detected: {suddenChange:F2}°C difference from recent average"
+            );
+        }
+
         return new ValidationResult(true, "Temperature reading is valid");
     }
-
-
-    var avgRecentTemp = recentReadings.Average(x => x.Temperature);
-    var suddenChange = Math.Abs(temperature - avgRecentTemp);
-    
-
-    var validRange = _config.MaxValue - _config.MinValue;
-    var maxAllowedChange = validRange * 0.2;
-    
-    if (suddenChange > maxAllowedChange)
-    {
-        return new ValidationResult(
-            false,
-            $"Suspicious rapid temperature change detected: {suddenChange:F2}°C difference from recent average"
-        );
-    }
-
-    return new ValidationResult(true, "Temperature reading is valid");
-}
-
-
-
 }

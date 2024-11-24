@@ -2048,6 +2048,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "7.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.Logging": "7.0.0",
           "Microsoft.Extensions.Logging.Console": "7.0.0"
         },
@@ -6439,11 +6441,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
       "projectName": "TemperatureSensor.Tests",
-      "projectPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
+      "projectPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\TemperatureSensor.Tests.csproj",
       "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\obj\\",
+      "outputPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6464,8 +6466,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj": {
-              "projectPath": "c:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj"
+            "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj": {
+              "projectPath": "C:\\Users\\Chris\\TemperatureSensorProject\\TemperatureSensor.App\\TemperatureSensor.App.csproj"
             }
           }
         }

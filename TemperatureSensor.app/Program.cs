@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using TemperatureSensor.App.Services;
 using TemperatureSensor.App.Interfaces;
+using TemperatureSensor.App.Models;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 
-// Set up dependency injection
+
 var services = new ServiceCollection()
     .AddLogging(builder =>
     {
@@ -11,10 +14,12 @@ var services = new ServiceCollection()
         builder.SetMinimumLevel(LogLevel.Debug);
     })
     .AddSingleton<IDataHistory, DataHistory>()
+    .AddSingleton<IDataLogger, FileLogger>()
     .AddSingleton<ITemperatureSensor, TempSensor>()
     .BuildServiceProvider();
 
-// Get services from the container
+
+
 var sensor = services.GetRequiredService<ITemperatureSensor>();
 
 try
@@ -34,7 +39,7 @@ try
     await sensor.StartSensor();
     Console.WriteLine("Sensor started. Press any key to stop...");
 
-    // Display readings for a while
+
     while (!Console.KeyAvailable)
     {
         var reading = sensor.GetCurrentReading();

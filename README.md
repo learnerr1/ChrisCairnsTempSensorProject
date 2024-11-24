@@ -19,13 +19,17 @@ This project simulates temperature sensors
 3. in terminal run `dotnet restore`
 
 ## Usage
-[TODO]
+dotnet clean
+dotnet build 
+
+dotnet run
 
 ## Configuration
-[TODO]
+
 
 ## Testing
 Run tests using:
-```bash
-dotnet test --collect:"XPlat Code Coverage"
+
+
+dotnet test 
 
