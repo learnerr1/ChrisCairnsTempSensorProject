@@ -4,5 +4,8 @@
     "MinValue": 22.0,
     "MaxValue": 24.0,
     "ReadingIntervalMs": 6000,
-    "NoiseLevel": 0.2
+    "NoiseLevel": 0.2,
+    "FaultProbability": 0.05,
+  "FaultDuration": 10000,
+  "FaultTemperature": 28.0
 }

@@ -18,6 +18,8 @@ public class TempSensor : ITemperatureSensor
     private readonly Random _random;
     private double _currentReading;
     private Timer? _timer;
+    private bool _isInFaultState;
+    private DateTime _faultStartTime;
 
     public string Name => _config?.Name ?? string.Empty;
     public string Location => _config?.Location ?? string.Empty;
@@ -60,7 +62,6 @@ public class TempSensor : ITemperatureSensor
 
             _config = config;
         
-
             var logPath = Path.Combine("logs", $"{_config.Name}_readings.log");
             var loggerInitialized = await _dataLogger.Initialize(logPath);
             if (!loggerInitialized)
@@ -153,9 +154,21 @@ public class TempSensor : ITemperatureSensor
     {
         if (!_isRunning || _config == null) return;
 
-        double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
-        _currentReading += noise;
-        _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
+        if (!_isInFaultState && ShouldInjectFault())
+        {
+            InjectFault();
+        }
+
+        if (_isInFaultState)
+        {
+            UpdateFaultReading();
+        }
+        else
+        {
+            double noise = (_random.NextDouble() * 2 - 1) * _config.NoiseLevel;
+            _currentReading += noise;
+            _currentReading = Math.Max(_config.MinValue, Math.Min(_config.MaxValue, _currentReading));
+        }
 
         var validationResult = ValidateData(_currentReading);
         
@@ -222,14 +235,42 @@ public class TempSensor : ITemperatureSensor
         return new ValidationResult(true, "Temperature reading is valid");
     }
 
-public double GetSmoothedReading(int windowSize = 5)
-{
-    if (!_isRunning || _config == null)
+    public double GetSmoothedReading(int windowSize = 5)
     {
-        throw new InvalidOperationException("Sensor is not running or not initialized");
+        if (!_isRunning || _config == null)
+        {
+            throw new InvalidOperationException("Sensor is not running or not initialized");
+        }
+        
+        return _dataHistory.SmoothData(windowSize);
     }
-    
-    return _dataHistory.SmoothData(windowSize);
-}
-    
+
+    private bool ShouldInjectFault()
+    {
+        if (_config == null) return false;
+        return _random.NextDouble() < _config.FaultProbability;
+    }
+
+    private void InjectFault()
+    {
+        _isInFaultState = true;
+        _faultStartTime = DateTime.UtcNow;
+        _logger.LogWarning("Fault injected in sensor {SensorName}", Name);
+    }
+
+    private void UpdateFaultReading()
+    {
+        if (_config == null) return;
+
+        if ((DateTime.UtcNow - _faultStartTime).TotalMilliseconds >= _config.FaultDuration)
+        {
+            _isInFaultState = false;
+            _logger.LogInformation("Fault cleared in sensor {SensorName}", Name);
+            return;
+        }
+
+        double timeFactor = (DateTime.UtcNow - _faultStartTime).TotalSeconds / (_config.FaultDuration / 1000.0);
+        double progressToFault = 1 - Math.Exp(-3 * timeFactor);
+        _currentReading = _config.MaxValue + (_config.FaultTemperature - _config.MaxValue) * progressToFault;
+    }
 }
