@@ -5,12 +5,12 @@
 This project simulates temperature sensors
 
 ## Features
-[TODO]
-- Sensor initialization from configuration file
+
+- Sensor initialised from configuration file
 - Temperature data simulation
 - Data validation and anomaly detection
-- Data logging and storage
-- Data smoothing algorithms
+- Data logging and storage(file)
+- Data smoothing
 - Fault simulation
 
 ## Installation
