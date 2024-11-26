@@ -231,5 +231,5 @@ public double GetSmoothedReading(int windowSize = 5)
     
     return _dataHistory.SmoothData(windowSize);
 }
-
+    
 }
