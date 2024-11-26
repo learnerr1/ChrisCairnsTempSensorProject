@@ -221,3 +221,17 @@ Temperature: 24.00°C
 Smoothed Average: 25.49°C
 Valid: False
 -------------------
+
+New Session Started - 2024-11-26 18:04:48
+=================================================
+
+Timestamp: 2024-11-26 05:05:15.513
+Temperature: 24.00°C
+Smoothed Average: 24.00°C
+Valid: False
+-------------------
+Timestamp: 2024-11-26 05:05:21.524
+Temperature: 27.34°C
+Smoothed Average: 26.23°C
+Valid: False
+-------------------

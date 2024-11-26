@@ -12,6 +12,7 @@ public class TempSensor : ITemperatureSensor
 {
     private readonly IDataHistory _dataHistory;
     private readonly IDataLogger _dataLogger;
+    private readonly IAlertService _alertService;
     private SensorConfig? _config;
     private bool _isRunning;
     private readonly ILogger<TempSensor> _logger;
@@ -25,11 +26,12 @@ public class TempSensor : ITemperatureSensor
     public string Location => _config?.Location ?? string.Empty;
     public bool IsRunning => _isRunning;
 
-    public TempSensor(ILogger<TempSensor> logger, IDataHistory dataHistory, IDataLogger dataLogger)
+    public TempSensor(ILogger<TempSensor> logger, IDataHistory dataHistory, IDataLogger dataLogger, IAlertService alertService)
     {
         _logger = logger;
         _dataHistory = dataHistory;
         _dataLogger = dataLogger;
+        _alertService = alertService;
         _isRunning = false;
         _random = new Random();
         _currentReading = 0;
@@ -61,6 +63,9 @@ public class TempSensor : ITemperatureSensor
             }
 
             _config = config;
+
+            _alertService.UpdateThresholds(_config.WarningThreshold, _config.CriticalThreshold);
+            _alertService.OnAlert += HandleAlert;
         
             var logPath = Path.Combine("logs", $"{_config.Name}_readings.log");
             var loggerInitialized = await _dataLogger.Initialize(logPath);
@@ -107,6 +112,12 @@ public class TempSensor : ITemperatureSensor
             return false;
         }
 
+        if (config.WarningThreshold >= config.CriticalThreshold)
+        {
+            _logger.LogError("Warning threshold must be less than critical threshold");
+            return false;
+        }
+
         return true;
     }
 
@@ -134,6 +145,7 @@ public class TempSensor : ITemperatureSensor
             _isRunning = false;
             _timer?.Dispose();
             _timer = null;
+            _alertService.OnAlert -= HandleAlert;
             _logger.LogInformation("Sensor stopped: {SensorName}", Name);
         }
 
@@ -171,12 +183,14 @@ public class TempSensor : ITemperatureSensor
         }
 
         var validationResult = ValidateData(_currentReading);
+        var alertLevel = _alertService.CheckThresholds(_currentReading);
         
         var sensorData = new SensorData
         {
             Temperature = Math.Round(_currentReading, 2),
             Timestamp = DateTime.UtcNow,
-            IsValid = validationResult.IsValid
+            IsValid = validationResult.IsValid,
+            AlertLevel = alertLevel
         };
 
         await _dataHistory.StoreData(sensorData);
@@ -191,6 +205,13 @@ public class TempSensor : ITemperatureSensor
             Name, 
             _currentReading.ToString("F2"),
             validationResult.IsValid);
+    }
+
+    private void HandleAlert(object? sender, AlertEvent e)
+    {
+        Console.ForegroundColor = e.Level == AlertLevel.Critical ? ConsoleColor.Red : ConsoleColor.Yellow;
+        Console.WriteLine(e.Message);
+        Console.ResetColor();
     }
 
     public ValidationResult ValidateData(double temperature)

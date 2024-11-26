@@ -5,4 +5,5 @@ public class SensorData
     public double Temperature { get; set; }
     public DateTime Timestamp { get; set; }
     public bool IsValid { get; set; }
+    public AlertLevel AlertLevel { get; set; } = AlertLevel.Normal;
 }

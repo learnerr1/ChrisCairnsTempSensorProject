@@ -15,4 +15,11 @@ public double FaultDuration { get; set; } = 6000;
 public double FaultTemperature { get; set; } = 28.0;
 
 
+
+//for threshold alerts
+public double WarningThreshold { get; set; } = 23.5;
+public double CriticalThreshold { get; set; } = 23.8;
+public bool EnableAlerts { get; set; } = true;
+
+
 }
